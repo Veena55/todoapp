@@ -1,0 +1,49 @@
+<%- include('header') %>
+<section class="lg:max-w-6xl w-[80%] mx-auto">    
+    <div>
+        <div class="py-5 flex lg:justify-end justify-center gap-5">
+            <a href="add-task" class="bg-green-200 py-2 px-5 rounded-md text-green-700 font-medium"><i class="fa-solid fa-plus"></i> Add Task</a>
+        </div>
+        <!-- Shows no data Div if data is not present in database -->
+        <% if(allTasks.length > 0) {
+                allTasks.forEach(task => { %>   
+                    <%# Dynamically loading status,class of css and checkbox check and uncheck property %>
+                    <% if(task.status == 'Completed') {
+                    isCheck = "checked";
+                    changeStatus="In Progress";
+                    color = 'text-green-500';
+                    strikeTrough =  "line-through";
+                } else {
+                    isCheck = "";
+                    changeStatus="Completed";
+                    color = 'text-yellow-500';
+                    strikeTrough = "";
+                } %>     
+        <div class="mt-5 border-b border-gray-200 w-full h-20 px-5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <input type="checkbox" onchange="window.location.href='my-tasks/<%= task.id %>/<%= changeStatus %>'" <%= isCheck %>>
+                <div>
+                    <p class="text-xl text-gray-600 <%= strikeTrough %>"><%= task.title%></p>
+                    <p class="text-xs leading-5"><i class="fa-solid fa-calendar text-yellow-300"></i> <%= task.deadline %> </p>
+                </div>
+            </div>
+            <div class="flex flex-col lg:flex-row">
+                <p class="mx-2 <%= color %> text-sm"><%= task.status %></p>
+                <a href="edit-task/<%= task.id %>" class="text-green-700 font-medium"><i class="fa-solid fa-pencil"></i></a>
+                <a href="delete-task/<%= task.id %>" class="mx-2 text-red-600 font-medium"><i class="fa-solid fa-trash-can"></i></a>
+            </div>
+        </div>
+   <% }); %>  
+   </div>
+   <% } else { %> 
+    <div>
+        <div class="border-[3px] border-y-green-300 border-x-yellow-300 rounded-xl max-w-6xl h-96 m-5 mx-auto flex justify-center items-center">
+            <div>
+                <h1 class="text-green-600 text-3xl capitalize font-medium">No data found</h1>
+                <p class="text-center pt-3"><i class="fa-regular fa-face-frown bg-[#f7e69b] text-4xl rounded-full"></i></p>
+            </div>
+        </div>
+    </div>
+    <% } %>
+</section>
+<%- include('footer') %>

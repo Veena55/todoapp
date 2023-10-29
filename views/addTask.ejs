@@ -1,0 +1,37 @@
+<%- include('header') %>
+<section class="max-w-3xl mx-auto">
+    <div class="mt-10">
+        <div class="border border-gray-200 rounded-xl p-5">
+            <h1 class="text-green-500 text-2xl font-medium text-center my-3"><%= title %></h1>
+           <form action="create-task" method="post" id="form">
+                <div>
+                    <label for="task-title" class="text-lg text-neutral-500">
+                        Enter Task Title
+                    </label>
+                    <input type="text" name="title" class="border p-2 rounded-lg w-full mt-2" required>
+                </div>
+                <div class="mt-4">
+                    <label for="task-deadline" class="text-lg text-neutral-500">
+                        Set Deadline
+                    </label>
+                    <input type="date" name="deadline" class="border p-2 rounded-lg w-full mt-2">
+                </div>
+                <div class="mt-5">
+                    <!-- Dynamic lodaing of text inside button, it will show "Please Wait" until request iscompleted -->
+                    <button 
+                    id="import_btn" 
+                    class="bg-green-500 font-medium rounded-md px-5 text-center text-lg text-white hover:bg-gradient-to-tl transition-all cursor-pointer" 
+                    type="submit" 
+                    x-data="{loading:false}"
+                    x-on:click="loading=true; document.getElementById('form').submit();"
+                    x-html="loading ? `Please Wait ...` : 'Add'" class="disabled:opacity-50" 
+                    x-bind:disabled="loading">
+                    Add
+                </button>
+                    <a href="my-tasks" class="ml-3 bg-red-200 font-medium rounded-md py-1 px-5 text-center text-md text-red-700">Cancel</a>
+                </div>
+           </form>
+        </div>
+    </div>
+</section> 
+<%- include('footer') %>  
